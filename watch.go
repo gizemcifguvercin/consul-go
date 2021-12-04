@@ -13,6 +13,7 @@ type ConsulWatcher struct {
 func NewConsulWatcher(c *ConsulConfig) ConsulWatcher {
 	consulConfig := api.DefaultConfig()
 	consulConfig.Address = c.BaseUrl
+	consulConfig.Token = c.ACL
 	client, err := api.NewClient(consulConfig)
 
 	if err != nil {
@@ -25,7 +26,6 @@ func NewConsulWatcher(c *ConsulConfig) ConsulWatcher {
 	consulClient.APIClient = client
 	consulClient.QueryOptions = queryOptions
 	consulClient.Config = c
-
 	return ConsulWatcher{consulClient: consulClient}
 }
 
