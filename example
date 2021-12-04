@@ -1,16 +1,16 @@
 /*
 import (
 	"github.com/jasonlvhit/gocron"
+ Consul "github.com/gizemcifguvercin/consul-go"
 )
 
 func main() {
-	//our custom configs
-	appConfig := NewAppConfig()
-
-	cfg := NewConsulConfig(5, "http://localhost:8500", "go", "")
-	consulWatcher := NewConsulWatcher(&cfg)
-
-	gocron.Every(uint64(cfg.Interval)).Seconds().Do(consulWatcher.Watch, &appConfig)
-	<-gocron.Start()
+	appConfig := Consul.NewAppConfig()
+	cfg := Consul.NewConsulConfig(5, "http://localhost:8500", "go", "")
+	consulWatcher := Consul.NewConsulWatcher(&cfg)
+	go func() {
+		gocron.Every(uint64(cfg.Interval)).Seconds().Do(consulWatcher.Watch, &appConfig)
+		<-gocron.Start()
+	}()
 }
 */
