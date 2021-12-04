@@ -1,6 +1,7 @@
-# Consul K/V Store Implementation For Go.
+# Consul K/V Store Implementation For Go
 
-Enables Consul to be used as a configuration source in go applications
+<img src="https://i.ibb.co/kGwcF7S/Screen-Shot-2021-12-04-at-18-56-46.png"/>
+<br/>Enables Consul to be used as a configuration source in go applications
 <br/>Dynamic Configuration with Consul's Key/Value Store Feature
 
 
