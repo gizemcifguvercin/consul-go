@@ -1,3 +1,4 @@
+/*
 package main
 
 import (
@@ -14,3 +15,4 @@ func main() {
 	gocron.Every(uint64(cfg.Interval)).Seconds().Do(consulWatcher.Watch, &appConfig)
 	<-gocron.Start()
 }
+*/
