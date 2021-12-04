@@ -74,5 +74,5 @@ func main() {
        </br> <b>ACL</b>      string
 
 ```html
-This project is still developing. Feel free to give feedback or send merge request
+This project is still developing. Feel free to give feedback or send pull request
 ```
