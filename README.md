@@ -12,6 +12,30 @@
 go get -u github.com/gizemcifguvercin/consul-go
 ```
 
+## Create Your Own Config 
+
+Match with the data model on Consul config json
+</br>Example:
+
+<img src="https://i.ibb.co/ScnJtQZ/Screen-Shot-2021-12-04-at-22-22-41.png"/>
+
+```html
+
+package main
+
+type ApplicationConfig struct {
+	Salary string `json:"Salary"`
+	Title  string `json:"Title"`
+}
+
+func NewApplicationConfig() ApplicationConfig {
+	return ApplicationConfig{}
+}
+
+
+```
+
+
 ## Usage
 
 
@@ -41,4 +65,14 @@ func main() {
 	}()
 }
 
+```
+
+</br>You can set some of Consul Config props with this order below;
+       </br> <b>Interval</b> int
+       </br> <b>BaseUrl</b>  string
+       </br> <b>Prefix</b>   string
+       </br> <b>ACL</b>      string
+
+```html
+This project is still developing. Feel free to give feedback or send merge request
 ```
