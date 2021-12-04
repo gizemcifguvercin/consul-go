@@ -1,13 +1,16 @@
 package main
 
 import (
-	Config "github.com/gizemcifguvercin/consul-go/config"
-	Tasks "github.com/gizemcifguvercin/consul-go/tasks"
+	"github.com/jasonlvhit/gocron"
 )
 
-var task Tasks.Tasks
-
 func main() {
-	cfg := Config.NewConfig(5, "http://localhost:8500", "go", "")
-	task.Runner(&cfg)
+	//our custom configs
+	appConfig := NewAppConfig()
+
+	cfg := NewConsulConfig(5, "http://localhost:8500", "go", "")
+	consulWatcher := NewConsulWatcher(&cfg)
+
+	gocron.Every(uint64(cfg.Interval)).Seconds().Do(consulWatcher.Watch, &appConfig)
+	<-gocron.Start()
 }
