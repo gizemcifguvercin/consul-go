@@ -1,4 +1,4 @@
-package main
+package consul_go
 
 type AppConfig struct {
 	Salary string `json:"Salary"`

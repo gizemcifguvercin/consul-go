@@ -1,4 +1,4 @@
-package main
+package consul_go
 
 import (
 	"github.com/hashicorp/consul/api"

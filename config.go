@@ -1,4 +1,4 @@
-package main
+package consul_go
 
 type ConsulConfig struct {
 	Interval int

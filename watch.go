@@ -1,4 +1,4 @@
-package main
+package consul_go
 
 import (
 	"encoding/json"
