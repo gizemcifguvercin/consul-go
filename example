@@ -8,6 +8,7 @@ func main() {
 	consulWatcher := Consul.NewConsulWatcher(&consulConfig)
 
 	appConfig := NewApplicationConfig()
-	consulWatcher.StartWatch(&appConfig)
+	data := consulWatcher.StartWatch()
+	json.Unmarshal([]byte(data), &appConfig)
 }
 */
