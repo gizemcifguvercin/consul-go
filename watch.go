@@ -7,7 +7,7 @@ import (
 )
 
 type ConsulWatcher struct {
-	consulClient *ConsulClient
+	ConsulClient *ConsulClient
 }
 
 func NewConsulWatcher(c *ConsulConfig) ConsulWatcher {
@@ -26,10 +26,10 @@ func NewConsulWatcher(c *ConsulConfig) ConsulWatcher {
 	consulClient.APIClient = client
 	consulClient.QueryOptions = queryOptions
 	consulClient.Config = c
-	return ConsulWatcher{consulClient: consulClient}
+	return ConsulWatcher{ConsulClient: consulClient}
 }
 
 func (w *ConsulWatcher) Watch(appConfig interface{}) {
-	data := w.consulClient.Read()
+	data := w.ConsulClient.Read()
 	json.Unmarshal([]byte(data), &appConfig)
 }
