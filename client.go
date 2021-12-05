@@ -21,9 +21,10 @@ func (c *ConsulClient) Read() (result string) {
 	defer func() {
 		if err := recover(); err != nil {
 			if c.OnLoad {
-				log.Println("OnLoad Error!")
+				log.Println("OnLoad Error!", err)
+			} else {
+				log.Println("OnWatch Error!", err)
 			}
-			log.Println("panic occurred:", err)
 		}
 	}()
 	kv := c.APIClient.KV()
