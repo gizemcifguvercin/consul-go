@@ -10,15 +10,19 @@ type ConsulClient struct {
 	APIClient    *api.Client
 	QueryOptions *api.QueryOptions
 	Config       *ConsulConfig
+	OnLoad       bool
 }
 
 func NewConsulClient() *ConsulClient {
-	return &ConsulClient{}
+	return &ConsulClient{OnLoad: true}
 }
 
 func (c *ConsulClient) Read() (result string) {
 	defer func() {
 		if err := recover(); err != nil {
+			if c.OnLoad {
+				log.Println("OnLoad Error!")
+			}
 			log.Println("panic occurred:", err)
 		}
 	}()
@@ -27,5 +31,6 @@ func (c *ConsulClient) Read() (result string) {
 	if err != nil {
 		panic(err)
 	}
+	c.OnLoad = false
 	return string(pair[0].Value)
 }
