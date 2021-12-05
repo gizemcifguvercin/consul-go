@@ -11,10 +11,10 @@ type ConsulWatcher struct {
 }
 
 func NewConsulWatcher(c *ConsulConfig) ConsulWatcher {
-	consulConfig := api.DefaultConfig()
-	consulConfig.Address = c.BaseUrl
-	consulConfig.Token = c.ACL
-	client, err := api.NewClient(consulConfig)
+	consulApiConfig := api.DefaultConfig()
+	consulApiConfig.Address = c.BaseUrl
+	consulApiConfig.Token = c.ACL
+	client, err := api.NewClient(consulApiConfig)
 
 	if err != nil {
 		panic("Client couldn't create !")
@@ -34,9 +34,9 @@ func (w *ConsulWatcher) Watch(appConfig *AppConfig) {
 	json.Unmarshal([]byte(data), &appConfig)
 }
 
-func (w *ConsulWatcher) StartWatch(consulConfig *ConsulConfig, appConfig *AppConfig) {
+func (w *ConsulWatcher) StartWatch(appConfig *AppConfig) {
 	go func() {
-		gocron.Every(uint64(consulConfig.Interval)).Seconds().Do(w.Watch, &appConfig)
+		gocron.Every(uint64(w.consulClient.Config.Interval)).Seconds().Do(w.Watch, &appConfig)
 		<-gocron.Start()
 	}()
 }
