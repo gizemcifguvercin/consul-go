@@ -1,6 +1,8 @@
 package consul_go
 
 import (
+	"encoding/json"
+
 	"github.com/hashicorp/consul/api"
 	"github.com/jasonlvhit/gocron"
 )
@@ -28,14 +30,14 @@ func NewConsulWatcher(c *ConsulConfig) ConsulWatcher {
 	return ConsulWatcher{consulClient: consulClient}
 }
 
-func (w *ConsulWatcher) Watch() (data string) {
-	data = w.consulClient.Read()
-	return data
+func (w *ConsulWatcher) Watch(appConfig *interface{}) {
+	data := w.consulClient.Read()
+	json.Unmarshal([]byte(data), &appConfig)
 }
 
-func (w *ConsulWatcher) StartWatch() {
+func (w *ConsulWatcher) StartWatch(appConfig *interface{}) {
 	go func() {
-		gocron.Every(uint64(w.consulClient.Config.Interval)).Seconds().Do(w.Watch)
+		gocron.Every(uint64(w.consulClient.Config.Interval)).Seconds().Do(w.Watch, &appConfig)
 		<-gocron.Start()
 	}()
 }
