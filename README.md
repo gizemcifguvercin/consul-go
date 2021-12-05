@@ -48,6 +48,7 @@ package main
 
 import (
 	Consul "github.com/gizemcifguvercin/consul-go"
+	"github.com/jasonlvhit/gocron"
 )
 
 ```
@@ -58,7 +59,10 @@ func main() {
 	consulWatcher := Consul.NewConsulWatcher(&consulConfig)
 
 	appConfig := NewApplicationConfig()
-	consulWatcher.StartWatch(&appConfig)
+	go func() {
+		gocron.Every(uint64(consulConfig.Interval)).Seconds().Do(consulWatcher.Watch, &appConfig)
+		<-gocron.Start()
+	}()
 }
 
 ```
