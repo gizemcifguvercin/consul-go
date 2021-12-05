@@ -11,7 +11,6 @@ type ConsulClient struct {
 	QueryOptions *api.QueryOptions
 	Config       *ConsulConfig
 	OnLoad       bool
-	NeedFallBack bool
 }
 
 func NewConsulClient() *ConsulClient {
@@ -23,7 +22,7 @@ func (c *ConsulClient) Read() (result string) {
 		if err := recover(); err != nil {
 			if c.OnLoad {
 				log.Println("OnLoad Error!", err)
-				c.NeedFallBack = true
+				panic("OnLoad Error!")
 			} else {
 				log.Println("OnWatch Error!", err)
 			}
