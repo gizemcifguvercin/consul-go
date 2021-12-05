@@ -28,14 +28,12 @@ func NewConsulWatcher(c *ConsulConfig) ConsulWatcher {
 	return ConsulWatcher{consulClient: consulClient}
 }
 
-func (w *ConsulWatcher) Watch() (data string) {
-	data = w.consulClient.Read()
-	return data
+func (w *ConsulWatcher) Watch(c chan string) {
+	data := w.consulClient.Read()
+	c <- data
 }
 
-func (w *ConsulWatcher) StartWatch() {
-	go func() {
-		gocron.Every(uint64(w.consulClient.Config.Interval)).Seconds().Do(w.Watch)
-		<-gocron.Start()
-	}()
+func (w *ConsulWatcher) StartWatch(c chan string) {
+	gocron.Every(uint64(w.consulClient.Config.Interval)).Seconds().Do(w.Watch, c)
+	<-gocron.Start()
 }
