@@ -29,7 +29,7 @@ func NewConsulWatcher(c *ConsulConfig) ConsulWatcher {
 	return ConsulWatcher{consulClient: consulClient}
 }
 
-func (w *ConsulWatcher) Watch(appConfig *AppConfig) {
+func (w *ConsulWatcher) Watch(appConfig interface{}) {
 	data := w.consulClient.Read()
 	json.Unmarshal([]byte(data), &appConfig)
 }
